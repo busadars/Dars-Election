@@ -1,0 +1,599 @@
+```html
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ബയാനുൽ ഉലൂം തിരഞ്ഞെടുപ്പ് 2026-27</title>
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+Malayalam:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Updated theme to match Bayanul Uloom Logo colors */
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --primary: #2b5f3d; /* Logo Dark Green */
+            --primary-dark: #1b4028; 
+            --accent: #c49d4f; /* Logo Gold/Mustard */
+            --text-dark: #1f2937;
+            --bg-gradient: linear-gradient(135deg, #e8f0ea 0%, #c1d5c6 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Malayalam', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-dark);
+        }
+
+        .container {
+            width: 95%;
+            max-width: 500px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            overflow: hidden;
+            margin: 20px auto;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            background: #fff;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .logo {
+            width: 90px;
+            height: auto;
+            margin: 0 auto 15px auto;
+            display: block;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            line-height: 1.4;
+        }
+
+        .header p {
+            margin: 5px 0 0;
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .content { padding: 25px; }
+
+        /* Login Layout */
+        #login-section { text-align: center; }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4b5563;
+            text-transform: uppercase;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: #f9fafb;
+            appearance: none;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(43, 95, 61, 0.1);
+        }
+
+        /* Voting UI */
+        .vote-card {
+            background: white;
+            border: 1px solid #f3f4f6;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        .vote-card:hover {
+            border-color: #e5e7eb;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .vote-card h3 {
+            margin: 0 0 12px;
+            font-size: 15px;
+            color: #111827;
+            display: flex;
+            align-items: center;
+        }
+
+        .vote-card h3::before {
+            content: '';
+            width: 4px;
+            height: 16px;
+            background: var(--accent);
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        /* Modern Custom Select with Search */
+        .custom-dropdown {
+            position: relative;
+        }
+
+        .dropdown-trigger {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 15px;
+            background: #f9fafb;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #9ca3af;
+            transition: all 0.3s;
+            user-select: none;
+        }
+
+        .dropdown-trigger.selected {
+            color: var(--text-dark);
+            background: white;
+            font-weight: 600;
+            border-color: #e5e7eb;
+        }
+
+        .dropdown-trigger:hover, .dropdown-trigger.open {
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .dropdown-trigger.open {
+            box-shadow: 0 0 0 4px rgba(43, 95, 61, 0.1);
+        }
+
+        .dropdown-trigger svg {
+            transition: transform 0.3s;
+        }
+
+        .dropdown-trigger.open svg {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .search-wrapper {
+            padding: 12px;
+            border-bottom: 1px solid #f3f4f6;
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            padding: 10px 15px 10px 35px;
+            /* SVG Search Icon */
+            background: #f3f4f6 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%239ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>') no-repeat 10px center;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s;
+            color: var(--text-dark);
+        }
+
+        .search-wrapper input:focus {
+            background: #ffffff;
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(43, 95, 61, 0.1);
+        }
+
+        .options-list {
+            max-height: 220px;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .option-item {
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 15px;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        .option-item:hover {
+            background: #f0fdf4;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .no-results {
+            padding: 15px;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 14px;
+            display: none;
+        }
+
+        /* End Custom Select */
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(43, 95, 61, 0.2);
+        }
+
+        .error-box {
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: none;
+            border: 1px solid #fca5a5;
+        }
+
+        .success-box {
+            text-align: center;
+            padding: 40px 10px;
+        }
+
+        .success-icon {
+            font-size: 50px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <!-- Logo Image Added -->
+        <img src="1000589727.png" alt="Bayanul Uloom Logo" class="logo" onerror="this.style.display='none'">
+        <!-- Updated Heading -->
+        <h1>ബയാനുൽ ഉലൂം സുഫ്ഫ ദർസ് കമ്മിറ്റി തിരഞ്ഞെടുപ്പ് 2026-27</h1>
+        <p>Election Portal</p>
+    </div>
+
+    <div class="content">
+        <!-- LOGIN SECTION -->
+        <div id="login-section">
+            <div id="login-error" class="error-box">അസാധുവായ ലോഗിൻ നമ്പർ! (Invalid Login Number)</div>
+            <div class="input-group">
+                <label>Login Number (500xx)</label>
+                <input type="number" id="voter-id" placeholder="Enter your 5-digit ID">
+            </div>
+            <button class="submit-btn" onclick="login()">ലോഗിൻ ചെയ്യുക (Login)</button>
+        </div>
+
+        <!-- VOTING SECTION -->
+        <div id="voting-section" style="display: none;">
+            <p id="user-display" style="text-align:center; font-weight:600; color:var(--primary); margin-bottom:20px; font-size: 18px;"></p>
+            
+            <!-- FORMSPREE INTEGRATION -->
+            <form id="voteForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID_HERE" method="POST">
+                
+                <!-- Hidden inputs for tracking -->
+                <input type="hidden" name="Voter_ID" id="form-voter-id">
+                <input type="hidden" name="Voter_Name" id="form-voter-name">
+
+                <div id="ballot-items">
+                    <!-- Javascript generates cards here -->
+                </div>
+
+                <button type="submit" class="submit-btn" style="background: var(--accent); color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">വോട്ട് രേഖപ്പെടുത്തുക (Cast Vote)</button>
+            </form>
+        </div>
+
+        <!-- SUCCESS SECTION -->
+        <div id="success-section" style="display: none;">
+            <div class="success-box">
+                <div class="success-icon">✓</div>
+                <h2 style="color: var(--primary-dark);">വോട്ട് രേഖപ്പെടുത്തി!</h2>
+                <p>നിങ്ങളുടെ വോട്ട് വിജയകരമായി രേഖപ്പെടുത്തിയിരിക്കുന്നു. (Your vote has been securely saved.)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const voters = [
+        "Abdulla", "Adil Fahad", "Ajmal", "Ameen Jihal", "Anshid", "Basith", "Bujair", "Minhaj", "Mirash Muhammed", 
+        "Muhammed Aji Roshan", "Muhammed Ali", "Muhammed Bishr", "Muhammed Faris", "Muhammed Midlaj", 
+        "Muhammed Munavvir", "Muhammed Musthafa P", "Muhammed Najad", "Muhammed Nihal", "Muhammed Rasal", 
+        "Muhammed Rashin", "Muhammed Rayyan Mushraf", "Muhammed Sabith KP", "Muhammed Sabith T", 
+        "Muhammed Shafeequ", "Muhammed Shinas", "Muhammed Sinan PU", "Muhammed Swalih", "Muhammed Zain", 
+        "Mhammed Ali", "Muzammil", "Nafih", "Hanan", "Qader Ajlan", "Suhail", "Thameem"
+    ];
+
+    const mainCandidates = ["Nafih", "Muzammil", "Ajmal", "Suhail", "Anshid", "Bujair", "Abdulla", "Ameen Jihal", "Muhammed Munavvir", "Muhammed Aji Roshan", "Minhaj", "Muhammed Sabith T"].sort();
+    const allVoters = [...voters].sort();
+
+    const voterDB = {};
+    voters.forEach((v, i) => voterDB[50010 + i] = v);
+
+    const roles = [
+        { name: "President", label: "പ്രസിഡന്റ്‌", list: mainCandidates },
+        { name: "Secretary", label: "സെക്രട്ടറി", list: mainCandidates },
+        { name: "Treasurer", label: "ട്രഷറർ", list: mainCandidates },
+        { name: "Medical_Board", label: "മെഡിക്കൽ ബോർഡ്‌", list: allVoters },
+        { name: "Canteen_Mgmt", label: "കാന്റീൻ മാനേജ്മെന്റ്", list: allVoters },
+        { name: "Library_Board", label: "ലൈബ്രറി ബോർഡ്‌", list: allVoters },
+        { name: "Cleaning_Mgmt", label: "ക്ലീനിങ് മാനേജ്മെന്റ്", list: allVoters },
+        { name: "Convener", label: "കൺവീനർ", list: allVoters }
+    ];
+
+    function login() {
+        const id = document.getElementById('voter-id').value;
+        const error = document.getElementById('login-error');
+        
+        if (voterDB[id]) {
+            error.style.display = 'none';
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('voting-section').style.display = 'block';
+            document.getElementById('user-display').innerText = `സ്വാഗതം, ${voterDB[id]}`;
+            
+            // Set hidden tracking values
+            document.getElementById('form-voter-id').value = id;
+            document.getElementById('form-voter-name').value = voterDB[id];
+            
+            renderBallot();
+        } else {
+            error.style.display = 'block';
+        }
+    }
+
+    function renderBallot() {
+        const container = document.getElementById('ballot-items');
+        roles.forEach((role, index) => {
+            const card = document.createElement('div');
+            card.className = 'vote-card';
+            
+            // Build searchable options list
+            let optionsHtml = '';
+            role.list.forEach(c => {
+                optionsHtml += `<div class="option-item" data-value="${c}">${c}</div>`;
+            });
+
+            card.innerHTML = `
+                <h3>${role.label} (${role.name})</h3>
+                <div class="custom-dropdown" id="dropdown-${index}">
+                    <!-- Hidden input to capture value for Formspree -->
+                    <input type="hidden" name="${role.name}" required>
+                    
+                    <div class="dropdown-trigger">
+                        <span class="selected-text">സ്ഥാനാർത്ഥിയെ തിരഞ്ഞെടുക്കുക...</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    
+                    <div class="dropdown-menu">
+                        <div class="search-wrapper">
+                            <input type="text" placeholder="തിരയുക (Search candidate)..." autocomplete="off">
+                        </div>
+                        <div class="options-list">
+                            ${optionsHtml}
+                            <div class="no-results">സ്ഥാനാർത്ഥിയെ കണ്ടെത്താനായില്ല</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+            
+            // Attach interactions to this specific dropdown
+            setupDropdown(card);
+        });
+    }
+
+    function setupDropdown(card) {
+        const trigger = card.querySelector('.dropdown-trigger');
+        const menu = card.querySelector('.dropdown-menu');
+        const searchInput = card.querySelector('.search-wrapper input');
+        const optionsList = card.querySelectorAll('.option-item');
+        const hiddenInput = card.querySelector('input[type="hidden"]');
+        const selectedText = card.querySelector('.selected-text');
+        const noResults = card.querySelector('.no-results');
+
+        // Toggle menu Open/Close
+        trigger.addEventListener('click', (e) => {
+            // Close other open menus first
+            document.querySelectorAll('.dropdown-menu').forEach(m => {
+                if(m !== menu) {
+                    m.classList.remove('active');
+                    m.previousElementSibling.classList.remove('open');
+                }
+            });
+            
+            menu.classList.toggle('active');
+            trigger.classList.toggle('open');
+            
+            if(menu.classList.contains('active')) {
+                setTimeout(() => searchInput.focus(), 100); 
+            }
+            e.stopPropagation();
+        });
+
+        // Search Filter Logic
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            let hasResults = false;
+            
+            optionsList.forEach(opt => {
+                const txt = opt.innerText.toLowerCase();
+                if(txt.includes(term)) {
+                    opt.style.display = 'block';
+                    hasResults = true;
+                } else {
+                    opt.style.display = 'none';
+                }
+            });
+            
+            noResults.style.display = hasResults ? 'none' : 'block';
+        });
+
+        // Option Selection Logic
+        optionsList.forEach(opt => {
+            opt.addEventListener('click', () => {
+                hiddenInput.value = opt.getAttribute('data-value');
+                selectedText.innerText = opt.innerText;
+                
+                trigger.classList.add('selected');
+                trigger.style.borderColor = ''; // Clear validation error styling if it exists
+                
+                menu.classList.remove('active');
+                trigger.classList.remove('open');
+                
+                // Reset search for next time
+                searchInput.value = '';
+                optionsList.forEach(o => o.style.display = 'block');
+                noResults.style.display = 'none';
+            });
+        });
+
+        // Prevent clicking inside the menu from closing it
+        menu.addEventListener('click', (e) => e.stopPropagation());
+    }
+
+    // Global click listener to close dropdowns when clicking outside
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('active'));
+        document.querySelectorAll('.dropdown-trigger').forEach(t => t.classList.remove('open'));
+    });
+
+    // Handle Formspree Submission & Custom Required Validation
+    const form = document.getElementById("voteForm");
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        
+        let allFilled = true;
+        const requiredInputs = form.querySelectorAll('input[type="hidden"][required]');
+        
+        // Manual validation since hidden inputs bypass standard HTML5 validation UI
+        requiredInputs.forEach(input => {
+            const trigger = input.nextElementSibling;
+            if (!input.value) {
+                allFilled = false;
+                trigger.style.borderColor = '#ef4444'; // Red border for empty fields
+                trigger.style.background = '#fef2f2'; 
+            }
+        });
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+
+        if (!allFilled) {
+            alert("ദയവായി എല്ലാ സ്ഥാനങ്ങളിലേക്കും സ്ഥാനാർത്ഥികളെ തിരഞ്ഞെടുക്കുക.\n(Please select a candidate for all positions.)");
+            return;
+        }
+
+        // Proceed to submit
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Saving Vote...";
+        const data = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: data,
+            headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            if (response.ok) {
+                document.getElementById('voting-section').style.display = 'none';
+                document.getElementById('success-section').style.display = 'block';
+            } else {
+                alert("എന്തോ തകരാർ സംഭവിച്ചു. ദയവായി വീണ്ടും ശ്രമിക്കുക.");
+                submitBtn.disabled = false;
+                submitBtn.innerText = "വോട്ട് രേഖപ്പെടുത്തുക (Cast Vote)";
+            }
+        }).catch(error => {
+            alert("ഇന്റർനെറ്റ് കണക്ഷൻ പരിശോധിക്കുക.");
+            submitBtn.disabled = false;
+            submitBtn.innerText = "വോട്ട് രേഖപ്പെടുത്തുക (Cast Vote)";
+        });
+    });
+</script>
+
+</body>
+</html>
+
+
+```
